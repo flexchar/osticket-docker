@@ -1,9 +1,11 @@
-# [osTicket](http://osticket.com) Docker Image (unofficial)
+# [osTicket](http://osticket.com) Docker Image (unofficial, working)
 
-<a href="http://osticket.com"><img src="http://osticket.com/sites/default/files/osTicket.jpg"
+<a href="https://osticket.com"><img src="https://osticket.com/wp-content/uploads/2017/03/osticket-supsys.png"
 align="left" hspace="10" vspace="6"></a>
 
-> This is a fork https://github.com/pi0/osticket-docker. That changes base image with latest php:7.4-apache image.
+## This is a fork https://github.com/pi0/osticket-docker. ReBased on php:7.4-apache image.
+
+---
 
 Docker image for running always fresh and bleeding edge version of [osTicket](http://osticket.com/) Shipping with plugins and language packs. **osTicket** is a widely-used open source support ticket system. It seamlessly
 integrates inquiries created via email, phone and web-based forms into a
