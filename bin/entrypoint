@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+
+# Run command if any argument is passed
+if [ ! $# -eq 0 ]; then
+    $@
+    exit $?
+fi
+
+# Fix
+fix
+
+# Go to src
+cd /var/www/src
+
+# Git repo
+if [ ! -z $GIT_REPO ]; then
+    if [ -d .git ]; then
+        git pull
+    else
+        rmdir public
+        git clone $GIT_REPO .
+    fi
+fi
+
+# User script
+if [ -x ./vendor ]; then
+    ./vendor
+fi
+
+# Start supervisord
+/usr/bin/supervisord -c /etc/supervisor/supervisord.conf

@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+cd /var/www
+
+DIRS="src/public"
+
+# Ensure directories existence
+mkdir -p $DIRS
+
+# Fix permissions
+chown -R www-data:www-data $DIRS
+
+# Working on src may take a long time so do it in background
+chown -R www-data:www-data src

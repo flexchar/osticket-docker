@@ -1,31 +1,15 @@
-[osTicket](http://osticket.com) Docker Image
-=============================================
-[![Docker Pulls](https://img.shields.io/docker/pulls/osticket/osticket.svg)](https://hub.docker.com/r/osticket/osticket)
-  
+# [osTicket](http://osticket.com) Docker Image (unofficial)
+
 <a href="http://osticket.com"><img src="http://osticket.com/sites/default/files/osTicket.jpg"
 align="left" hspace="10" vspace="6"></a>
+
+> This is a fork https://github.com/pi0/osticket-docker. That changes base image with latest php:7.4-apache image.
 
 Docker image for running always fresh and bleeding edge version of [osTicket](http://osticket.com/) Shipping with plugins and language packs. **osTicket** is a widely-used open source support ticket system. It seamlessly
 integrates inquiries created via email, phone and web-based forms into a
 simple easy-to-use multi-user web interface. Manage, organize and archive
 all your support requests and responses in one place while providing your
 customers with accountability and responsiveness they deserve.
-
-## How osTicket works for you
-  1. Users create tickets via your website, email, or phone
-  2. Incoming tickets are saved and assigned to agents
-  3. Agents help your users resolve their issues
-
-osTicket is an attractive alternative to higher-cost and complex customer
-support systems; simple, lightweight, reliable, open source, web-based and
-easy to setup and use. The best part is, it's completely free.
-
-  * Based on [PaaS](https://github.com/pi0/paas) Image.
-  * Works with a linked Mariadb docker container.
-  * Automates configuration file & database installation
-  * Email support 
-  * Always have bleeding edge version 
-  * Stock plugins are always installed and updated
 
 # Quick Start
 
@@ -44,19 +28,19 @@ docker run --name osticket -d --link osticket_mysql:mysql -p 8080:80 osticket/os
 
 Wait for the installation to complete then browse to your osTicket staff control panel at `http://localhost:8080/scp`. Login with default admin user & password:
 
-* username: **ostadmin**
-* password: **Admin1**
+-   username: **ostadmin**
+-   password: **Admin1**
 
 Now configure as required. If you are intending on using this image in production, please make sure you change the
 passwords above and read the rest of this documentation!
 
 # MySQL connection
 
-The recommended connection method is to link your MySQL container to this image with the alias name ```mysql```. However, if you
+The recommended connection method is to link your MySQL container to this image with the alias name `mysql`. However, if you
 are using an external MySQL server then you can specify the connection details using environmental variables.
 
 osTicket requires that the MySQL connection specifies a user with full permissions to the specified database. This is required for the automatic
- database installation.
+database installation.
 
 The osTicket configuration file is re-created from the template every time the container is started. This ensures the
 MySQL connection details are always kept up to date automatically in case of any changes.
@@ -83,7 +67,7 @@ using a linked container.
 `MYSQL_PREFIX`
 
 The table prefix for this installation. Unlikely you will need to change this as customisable table prefixes are
-designed for shared hosting with only a single MySQL database available. Defaults to 'ost_'.
+designed for shared hosting with only a single MySQL database available. Defaults to 'ost\_'.
 
 `MYSQL_DATABASE`
 
@@ -96,14 +80,14 @@ The user name to use when connecting to the MySQL server. Defaults to 'osticket'
 # Mail Configuration
 
 The image does not run a MTA. Although one could be installed quite easily, getting the setup so that external mail servers
-will accept mail from your host & domain is not trivial due to anti-spam measures. This is additionally difficult to do 
+will accept mail from your host & domain is not trivial due to anti-spam measures. This is additionally difficult to do
 from ephemeral docker containers that run in a cloud where the host may change etc.
 
-Hence this image supports osTicket sending of mail by sending directly to designated a SMTP server. 
+Hence this image supports osTicket sending of mail by sending directly to designated a SMTP server.
 However, you must provide the relevant SMTP settings through environmental variables before this will function.
 
-To automatically collect email from an external IMAP or POP3 account, configure the settings for the relevant email address in 
-your admin control panel as normal (Admin Panel -> Emails). 
+To automatically collect email from an external IMAP or POP3 account, configure the settings for the relevant email address in
+your admin control panel as normal (Admin Panel -> Emails).
 
 ## SMTP Settings
 
@@ -117,7 +101,7 @@ The TCP port to connect to on the server. Defaults to '25'. Usually one of 25, 4
 
 `SMTP_FROM`
 
-The envelope from address to use when sending email (note that is not the same as the From: header). This must be 
+The envelope from address to use when sending email (note that is not the same as the From: header). This must be
 provided for sending mail to function. However, if not specified, this will default to the value of `SMTP_USER` if this is provided.
 
 `SMTP_TLS`
@@ -143,7 +127,7 @@ The password associated with the user for SMTP authentication. Defaults to no va
 
 `CRON_INTERVAL`
 
-Specifies how often (in minutes) that osTicket cron script should be ran to check for incoming emails. Defaults to 5 
+Specifies how often (in minutes) that osTicket cron script should be ran to check for incoming emails. Defaults to 5
 minutes. Set to 0 to disable running of cron script. Note that this works in conjuction with the email check interval
 specified in the admin control panel, you need to specify both to the value you'd like!
 
@@ -153,8 +137,8 @@ specified in the admin control panel, you need to specify both to the value you'
 
 Secret string value for OST installation. A random value is generated on start-up and persisted within the container if this is not provided.
 
-*If using in production you should specify this so that re-creating the container does not cause
-your installation secret to be lost!*
+_If using in production you should specify this so that re-creating the container does not cause
+your installation secret to be lost!_
 
 `INSTALL_CONFIG`
 
@@ -203,8 +187,3 @@ Password to use for automatically created administrative user. Defaults to 'Admi
 This image was put together relatively quickly and could probably be improved to meet other use cases.
 
 Please feel free to open an issue if you have any changes you would like to see. All pull requests are also appreciated!
-
-# License
-
-Installer script in this image and docs was based on [CampbellSoftwareSolutions/docker-osticket](https://github.com/CampbellSoftwareSolutions/docker-osticket) that itself was created from a fork of docker-osticket image by [Petter A. Helset](mailto:petter@helset.eu).
-This image and source code is made available under the MIT licence. See the LICENSE file for details.
