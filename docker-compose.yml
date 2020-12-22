@@ -2,7 +2,10 @@ version: '3.8'
 
 services:
   osticket:
-    build: .
+    build:
+      context: .
+      args:
+        - TIMEZONE=Europe/Copenhagen
     environment:
       - MYSQL_HOST=mysql
       - MYSQL_DATABASE=osticket

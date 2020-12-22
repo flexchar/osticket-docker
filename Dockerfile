@@ -1,15 +1,17 @@
-FROM php:8-apache
+FROM php:7-apache
 LABEL maintainer="Lukas Vanagas"
+
+ARG TIMEZONE="Europe/Copenhagen"
 
 # Install packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     # Libraries for container's ecosystem
     git-core zsh supervisor cron vim \
     # Libraries for PHP 
-    unzip libmcrypt-dev libpcre3-dev libxml2-dev libzip-dev libpng-dev libjpeg-dev libc-client-dev libkrb5-dev && \
-    # 
-    # Install PHP Extensions
-    pecl install -o -f apcu && \
+    unzip libmcrypt-dev libpcre3-dev libxml2-dev libzip-dev libpng-dev libjpeg-dev libc-client-dev libkrb5-dev 
+
+# Install PHP Extensions
+RUN pecl install -o -f apcu && \
     docker-php-ext-enable apcu && \
     docker-php-ext-configure gd --with-jpeg && \
     docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
@@ -38,9 +40,9 @@ RUN touch /etc/msmtp /etc/osticket.secret.txt /etc/cron.d/osticket && \
     chown www-data:www-data /etc/msmtp /etc/osticket.secret.txt /etc/cron.d/osticket && \
     chown root:www-data /bin/vendor && chmod 770 /bin/vendor && \
     ln -fs /conf/php.ini "$PHP_INI_DIR/conf.d/custom.ini" && \
-    ln -fs /conf/supervisord.conf /etc/supervisor/conf.d/custom.conf
+    ln -fs /conf/supervisord.conf /etc/supervisor/conf.d/custom.conf && \
+    echo "date.timezone=$TIMEZONE" >> "$PHP_INI_DIR/conf.d/custom.ini"
 
-
-VOLUME /var/www
 EXPOSE 80
+VOLUME /var/www
 ENTRYPOINT ["entrypoint"]
