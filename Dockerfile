@@ -41,7 +41,8 @@ RUN touch /etc/msmtp /etc/osticket.secret.txt /etc/cron.d/osticket && \
     chown root:www-data /bin/vendor && chmod 770 /bin/vendor && \
     ln -fs /conf/php.ini "$PHP_INI_DIR/conf.d/custom.ini" && \
     ln -fs /conf/supervisord.conf /etc/supervisor/conf.d/custom.conf && \
-    echo "date.timezone=$TIMEZONE" >> "$PHP_INI_DIR/conf.d/custom.ini"
+    echo "date.timezone=$TIMEZONE" >> "$PHP_INI_DIR/conf.d/custom.ini" && \
+    chmod +x /bin/vendor
 
 EXPOSE 80
 VOLUME /var/www
