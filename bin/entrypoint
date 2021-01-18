@@ -24,8 +24,8 @@ if [ ! -z $GIT_REPO ]; then
 fi
 
 # User script
-if [ -x ./vendor ]; then
-    ./vendor
+if [ -x /bin/vendor ]; then
+    /bin/vendor
 fi
 
 # Start supervisord
