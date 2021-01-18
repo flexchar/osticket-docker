@@ -123,8 +123,7 @@ if (
 $interval = (int) $vars['cron_interval'];
 if ($interval > 0) {
     echo "OSTicket cron job is set to run every {$interval} minutes\n";
-    $cron =
-        "*/{$interval} * * * * www-data /usr/bin/php " . CRON_JOB_SCRIPT . "\n";
+    $cron = "*/{$interval} * * * * /usr/bin/php " . CRON_JOB_SCRIPT . "\n";
     file_put_contents(CRON_JOB_FILE, $cron);
 } else {
     echo "OSTicket cron job is disabled\n";
